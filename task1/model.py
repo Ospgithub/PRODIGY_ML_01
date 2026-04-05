@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, r2_score
 
 # Load dataset
-df = pd.read_csv(r"C:\Users\aslan\Documents\python\internship\train.csv")
+df = pd.read_csv(r"C:\Users\aslan\Documents\python\internship\task1\train.csv")
 
 # Select features
 df = df[['GrLivArea', 'BedroomAbvGr', 'FullBath', 'salary', 'age']]
@@ -33,11 +33,19 @@ print("R2 Score:", r2_score(y_test, y_pred))
 sample = np.array([[2000, 3, 2]])
 print("Predicted Price:", model.predict(sample)[0])
 
-# line graph
-plt.plot(df['age'], df['salary'])
+# Line graph (sorted by age so the line doesn't zigzag)
+df_sorted = df.sort_values('age')
+plt.plot(df_sorted['age'], df_sorted['salary'], marker='o')
 
 plt.xlabel("Age")
 plt.ylabel("Salary")
 plt.title("Age vs Salary")
+plt.show()
 
+# Actual vs Predicted scatter plot
+plt.scatter(y_test, y_pred, color='blue')
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+plt.xlabel("Actual Salary")
+plt.ylabel("Predicted Salary")
+plt.title("Actual vs Predicted")
 plt.show()
